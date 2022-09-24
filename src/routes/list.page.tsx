@@ -5,7 +5,6 @@ import {
 	Table,
 	TableContainer,
 	Tbody,
-	Badge,
 	Td,
 	Th,
 	Thead,
@@ -13,7 +12,7 @@ import {
 	HStack,
 	Spinner,
 } from "@chakra-ui/react";
-import classNames from "classnames";
+import Status from "components/status.badge";
 import { ITicket } from "interfaces/root.interface";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -36,13 +35,33 @@ export default function List() {
 
 	if (error) return <p>There is an error.</p>;
 	if (!data)
-		return <Spinner position="fixed" top={4} right={4} thickness="2px" color="green.500" speed="0.65s" size="sm" />;
+		return (
+			<Spinner
+				role="progressbar"
+				position="fixed"
+				top={4}
+				right={4}
+				thickness="2px"
+				color="green.500"
+				speed="0.65s"
+				size="sm"
+			/>
+		);
 
 	return (
 		<>
 			<Heading role="heading">Tickets App</Heading>
 			{isLoading && (
-				<Spinner position="fixed" top={4} right={4} thickness="2px" color="green.500" speed="0.65s" size="sm" />
+				<Spinner
+					role="progressbar"
+					position="fixed"
+					top={4}
+					right={4}
+					thickness="2px"
+					color="green.500"
+					speed="0.65s"
+					size="sm"
+				/>
 			)}
 			<HStack my={5}>
 				<Button
@@ -89,14 +108,7 @@ export default function List() {
 								<Td>{item.id}</Td>
 								<Td isNumeric>{item.number}</Td>
 								<Td isNumeric>
-									<Badge
-										colorScheme={classNames({
-											green: item.status === "completed",
-											purple: item.status === "assigned",
-										})}
-									>
-										{item.status}
-									</Badge>
+									<Status type={item.status}>{item.status}</Status>
 								</Td>
 								<Td isNumeric>
 									<Link to={`/tickets/${item.id}`}>

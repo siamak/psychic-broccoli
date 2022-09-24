@@ -1,59 +1,119 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+# Coding Assignment
 
-## Available Scripts
+The goal of this assignment is to showcase your ability to develop features and your coding style. Due to the time
 
-In the project directory, you can run:
+constraint you will have to prioritize what you work on, and have to try and balance cleanliness with just getting it
 
-### `yarn start`
+done.
 
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+Even though the app is small, one can easily spend the whole week working on it: perfecting styles, testing every single
 
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
+method, or carefully crafting every single line of code. Please don't! Do as much as you can in about three hours and
 
-### `yarn test`
+share the results.
 
-Launches the test runner in the interactive watch mode.<br /> See the section
-about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+The most important part of the interview will come after this one, when we look at the app together, talk about the
 
-### `yarn build`
+decisions you have made, etc..
 
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
+Install the packages and you're good to go!
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
+```bash
 
-### `yarn eject`
+# Install dependencies
+yarn
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Run the app
+yarn start
 
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
+# Run the server
+yarn start-server
 
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
+# run the tests
+yarn test
 
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
+```
 
-## Learn More
+## Rest API Urls
 
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Users
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   Get all users: `GET http://localhost:3004/users`
+
+-   Get user: `GET http://localhost:3004/users/{userId}`
+
+-   Update user(Put): `PUT http://localhost:3004/users/{userId}`
+
+-   Update user(Patch): `PATCH http://localhost:3004/users/{userId}`
+
+-   Remove user: `DELETE http://localhost:3004/users/{userId}`
+
+-   Full text search : `GET http://localhost:3004/users?q={searchText}`
+
+### Tickets
+
+-   Get all tickets: `GET http://localhost:3004/tickets`
+
+-   Get all tickets with associated user: `GET http://localhost:3004/tickets?_expand=user`
+
+-   Get ticket: `GET http://localhost:3004/tickets/{ticketId}`
+
+-   Update ticket(Put):` PUT http://localhost:3004/tickets/{ticketId}`
+
+-   Update ticket(Patch):` PUT http://localhost:3004/tickets/{ticketId}`
+
+-   Remove ticket: `DELETE http://localhost:3004/tickets/{ticketId}`
+
+-   Search by status : `GET http://localhost:3004/tickets?status={statusValue}`
+
+-   Full text search : `GET http://localhost:3004/tickets?q={searchText}`
+
+### User & Ticket Schema
+
+```typeScript
+    interface User {
+        id: number,
+        firstName: string,
+        lastName: string,
+        dob: string,
+        address: string,
+        image:string
+    }
+
+    interface Ticket {
+        id: number,
+        userId?: number,
+        number: string,
+        status: string,
+    }
+```
+
+## Ticketing managing application
+
+Build a ticket managing app, where the user can _add_, _filter_ (by status), _assign_, and _complete_ tickets.
+
+-   The app should have two screens:
+
+    1.  the list screen and
+
+    2.  the details screen.
+
+Tickets could have one of these states: `"assigned", "completed", "unassigned"`
+
+Please use the React Router to manage the transitions between them.
+
+-   You can use any state management library you want (or none at all).
+
+-   Write a couple of tests. The goal here is not to build a production-quality app, so don't test every single detail. Two or three tests should be good enough.
+
+-   Don't forget about error handling and race conditions. The API server has a random delay. If you bump it up to say 10 seconds, would the app still work correctly?
+
+**💡 Feel free to use any of the popular react UI component libraries like MUI, Chakra-UI, etc ...**
+
+## Submitting your solution
+
+Please send us the link to your repo on GitHub, Gitlab, etc. We will continue to work on it during the pair-programming
+
+sessions. Please also indicate approximately how long you spent on the submission.
